@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
-
+    public Animator animator;
 
     bool isFacingRight = false;
 
@@ -45,11 +45,25 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
         Gravity();
         Flip();
+
+        animator.SetFloat("yVelocity", rb.velocity.y);
+        bool isHorizontalInputPressed = horizontalMovement != 0;
+
+        if (isHorizontalInputPressed && isGrounded())
+        {
+            //Debug.Log("I'm Moving Now");
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
     }
 
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
+        animator.SetBool("isWalking", true);
     }
 
     public void Jump(InputAction.CallbackContext context) 
@@ -59,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
             if (context.performed)
             {
                 rb.velocity = new Vector2(rb.velocity.x, jumpPower);
+                animator.SetTrigger("Jump");
             }
         }
 
