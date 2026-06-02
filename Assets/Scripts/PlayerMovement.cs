@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isWalking", true);
     }
 
+
+
     public void Jump(InputAction.CallbackContext context) 
     {
         if (isGrounded())
