@@ -12,12 +12,13 @@ public class BasicBullet : MonoBehaviour
     {
         rb.velocity = -transform.right * bulletSpeed;
     }
-
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+    */
 
 
     private void OnTriggerEnter2D(Collider2D hitInfo)
@@ -26,4 +27,5 @@ public class BasicBullet : MonoBehaviour
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
+    
 }
